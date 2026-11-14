@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Japan Family Trip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, family, a little magical — a winter trip worth waiting for
+   IDEA: a ryokan's paper wish card, filled in by lamplight on a snowy night
+   PICTURE: indigo night over snowy peaks, an onsen roof with steam, a red torii, falling snow
+   COLOUR+TYPE: snow white + deep indigo, camellia red accent; Shippori Mincho titles, Zen Kaku Gothic body
+   LAYOUT: scene on top, then one question at a time in a single calm column; results as tally rows */
+:root{color-scheme:light dark;
+--bg:light-dark(#f4f6fa,#0d1424);--card:light-dark(#ffffff,#16203a);--ink:light-dark(#18213a,#eef2fa);
+--soft:light-dark(#5b6684,#a9b4cf);--line:light-dark(#dfe4ee,#2a3658);--ind:#1d2b52;--red:#c8323c;--red2:light-dark(#fbe9ea,#3a1d27);--snow:#ffffff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Zen Kaku Gothic New",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Shippori Mincho B1",Georgia,serif;margin:0;text-wrap:balance;line-height:1.1}
+.hero{position:relative;background:linear-gradient(#0b1430,#1d2b52 70%,#2c3d6c);color:#fff;overflow:hidden}
+.hero svg{display:block;width:100%;height:clamp(250px,42vw,340px)}
+.hero .tx{position:absolute;left:max(5vw,18px);top:clamp(18px,5vw,48px);right:18px}
+.hero h1{font-size:clamp(32px,7vw,52px);font-weight:800}
+.hero p{margin:6px 0 0;color:#cdd6ef;font-size:16px}
+.flake{animation:fall linear infinite}
+@keyframes fall{from{transform:translateY(-20px)}to{transform:translateY(340px)}}
+@media (prefers-reduced-motion:reduce){.flake{animation:none}}
+.tabs{display:flex;gap:6px;max-width:680px;margin:-26px auto 0;padding:0 16px;position:relative;z-index:2}
+.tabs button{flex:1;min-height:48px;border:0;border-radius:14px 14px 0 0;font:600 16px "Zen Kaku Gothic New",sans-serif;background:#2c3d6c;color:#cdd6ef;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink)}
+main{max-width:680px;margin:0 auto;padding:0 16px 48px}
+.panel{background:var(--card);border-radius:0 0 20px 20px;padding:clamp(20px,4vw,32px);box-shadow:0 12px 30px -18px rgba(13,20,36,.45)}
+.who{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:16px}
+.chip{min-height:84px;border:1.5px solid var(--line);border-radius:16px;background:transparent;color:var(--ink);font:600 17px "Zen Kaku Gothic New",sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.chip .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:15px}
+.chip small{color:var(--soft);font-weight:400;font-size:13px}
+.chip:hover,.opt:hover{border-color:var(--red)}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--soft)}
+.top button{background:none;border:0;color:var(--soft);font:inherit;cursor:pointer;min-height:44px;text-decoration:underline}
+.bar{height:6px;border-radius:6px;background:var(--line);margin:8px 0 22px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);border-radius:6px;transition:width .3s}
+.sec{font-size:14px;color:var(--red);font-weight:700}
+.q h2{font-size:clamp(24px,5vw,32px);margin:4px 0 6px}
+.hint{color:var(--soft);font-size:14px;margin:0 0 16px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;min-height:56px;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.opt b{display:block;font-weight:700;color:var(--ink)}
+.opt>span:last-child{flex:1}.opt span span{display:block;color:var(--soft);font-size:14px;line-height:1.4;margin-top:2px}
+.opt .tick{flex:none;width:22px;height:22px;margin-top:2px;border:1.5px solid var(--line);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13px}
+.opt.m .tick{border-radius:6px}
+.opt[aria-pressed=true]{border-color:var(--red);background:var(--red2)}
+.opt[aria-pressed=true] .tick{background:var(--red);border-color:var(--red)}
+textarea{width:100%;min-height:120px;font:16px/1.5 inherit;font-family:inherit;padding:14px;border-radius:14px;border:1.5px solid var(--line);background:transparent;color:var(--ink)}
+.nav{display:flex;gap:10px;margin-top:22px}
+.btn{min-height:50px;padding:0 22px;border-radius:14px;border:0;font:700 16px "Zen Kaku Gothic New",sans-serif;cursor:pointer}
+.pri{background:var(--red);color:#fff;flex:1}.sec2{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:default}
+.status{font-size:13px;color:var(--soft);margin-top:12px;min-height:20px}
+.done{text-align:center;padding:12px 0}
+.done h2{font-size:32px;margin:10px 0}
+.copybox{white-space:pre-wrap;text-align:left;background:var(--bg);border-radius:12px;padding:14px;font-size:14px;max-height:240px;overflow:auto;margin-top:12px}
+.rq{padding:18px 0;border-bottom:1px solid var(--line)}
+.rq h3{font-size:20px;margin-bottom:10px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;margin:8px 0}
+.row .lab{font-size:15px}
+.row .ct{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.row .track{grid-column:1/-1;height:8px;background:var(--line);border-radius:8px;overflow:hidden}
+.row .track i{display:block;height:100%;background:var(--ind);border-radius:8px}
+:root[data-theme=dark] .row .track i{background:#7d93d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .row .track i{background:#7d93d6}}
+.row.lead .track i{background:var(--red)}
+.dots{grid-column:1/-1;display:flex;gap:4px;flex-wrap:wrap}
+.dots em{font-style:normal;font-size:12px;padding:2px 8px;border-radius:20px;color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.legend span{font-size:13px;padding:4px 10px;border-radius:20px;border:1px solid var(--line)}
+.legend span.in{color:#fff;border-color:transparent}
+.note{background:var(--bg);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:15px}
+.empty{color:var(--soft);padding:20px 0}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="tx"><h1>Japan, Dec 12–19</h1><p>Our family winter trip. Tell us what you’d love to do.</p></div>
+<svg viewBox="0 0 800 340" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f7ff"/><stop offset=".35" stop-color="#c9d4f0"/><stop offset="1" stop-color="#3a4c80"/></linearGradient>
+<linearGradient id="mt2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4eaf9"/><stop offset="1" stop-color="#26356a"/></linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffd9a8" stop-opacity="0"/></radialGradient></defs>
+<circle cx="640" cy="90" r="28" fill="#f4f1e6" opacity=".9"/>
+<path d="M330 330 L520 120 L560 150 L590 128 L760 330Z" fill="url(#mt)"/>
+<path d="M500 142 L520 120 L560 150 L590 128 L612 152 L590 168 L560 160 L530 172Z" fill="#fff"/>
+<path d="M-20 330 L150 170 L250 250 L330 200 L470 330Z" fill="url(#mt2)" opacity=".9"/>
+<path d="M0 300 Q200 270 400 292 T800 286 V340 H0Z" fill="#eef2fb"/>
+<g transform="translate(110 236)"><path d="M0 34 L60 6 L120 34Z" fill="#2b2f45"/><path d="M-6 36 L60 2 L126 36 L120 40 L60 12 L0 40Z" fill="#fff"/><rect x="14" y="38" width="92" height="36" fill="#5a3c33"/><rect x="26" y="46" width="20" height="18" fill="#ffcf8a"/><rect x="74" y="46" width="20" height="18" fill="#ffcf8a"/><circle cx="60" cy="56" r="40" fill="url(#glow)"/></g>
+<g fill="#fff" opacity=".55"><path d="M150 228 q-10 -18 4 -32 q12 -12 2 -28" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M178 228 q-12 -20 2 -36 q10 -10 0 -24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g>
+<g transform="translate(330 214)" fill="#c8323c"><rect x="0" y="0" width="96" height="9" rx="3"/><rect x="8" y="16" width="80" height="7"/><rect x="16" y="9" width="9" height="76"/><rect x="71" y="9" width="9" height="76"/><rect x="-4" y="-4" width="104" height="4" fill="#fff" rx="2"/></g>
+<g id="sn"></g>
+</svg>
+</header>
+<nav class="tabs" role="tablist"><button id="tA" role="tab" aria-selected="true">My answers</button><button id="tR" role="tab" aria-selected="false">Family results</button></nav>
+<main><section class="panel" id="view"></section></main>
+<script>
+{
+const FAM=[["chari","Chari","Mom","#c8323c"],["sherwin","Sherwin","Dad","#1d2b52"],["artaj","Artaj","","#7a4fa3"],["heaven","Heaven","","#2f7d6d"],["isaiah","Isaiah","","#d0782a"]];
+const Q=[
+{id:"base",s:"The plan",t:"Where should we stay?",o:[["osaka","Osaka all week","Unpack once; USJ, Kobe and nature as day trips"],["ryokan","Osaka + 1–2 nights at an onsen inn","City hotel first, then a cozy ryokan with dinner and breakfast"],["kyoto","Split Osaka and Kyoto","A few nights in each city"]]},
+{id:"pace",s:"The plan",t:"How should our days feel?",o:[["early","Early birds","Out by 8, see as much as we can"],["bal","Balanced","Start around 9:30, a break in the middle"],["slow","Slow mornings","Sleep in, fewer stops, more lingering"]]},
+{id:"rest",s:"The plan",t:"What downtime do you want?",m:1,o:[["nap","Afternoon rest at the hotel"],["free","A free half-day to do my own thing"],["early","Early nights"],["none","No downtime, keep going!"]]},
+{id:"usjd",s:"Universal Studios Japan",t:"How should we do USJ?",o:[["1","One full day","Rope drop to fireworks"],["1x","One day with Express Pass","Costs more, far shorter lines"],["2","Two days","Slower pace, ride favourites twice"]]},
+{id:"usj",s:"Universal Studios Japan",t:"Your USJ must-dos",m:1,o:[["mario","Super Nintendo World","Mario Kart, Yoshi, power-up bands"],["dk","Donkey Kong Country","Mine-cart coaster"],["hp","Wizarding World of Harry Potter","Hogsmeade, butterbeer, Forbidden Journey"],["minion","Minion Park"],["coaster","Big coasters","Flying Dinosaur, Hollywood Dream"],["shows","Shows and parades"],["wonder","Universal Wonderland","Snoopy, Hello Kitty, Sesame Street"]]},
+{id:"statw",s:"Stationery",t:"Which stationery stops?",m:1,o:[["loft","Loft","Floors of pens, planners and stickers"],["hands","Hands","Craft and DIY supplies"],["muji","Muji"],["daiso","Daiso and 3COINS","Cheap, cheerful hauls"],["washi","Kyoto washi and brush shops","Traditional paper and calligraphy"]]},
+{id:"statb",s:"Stationery",t:"What are you hunting for?",m:1,o:[["pens","Gel pens and fancy pens"],["plan","Planners and notebooks"],["tape","Washi tape and stickers"],["art","Art supplies and markers"],["brush","Calligraphy brushes and ink"],["char","Character stationery"]]},
+{id:"jw",s:"Jeans",t:"Where should we shop for jeans?",o:[["kojima","Kojima Jeans Street day trip","Japan’s denim town near Okayama, about 1.5 hrs from Osaka"],["osaka","Osaka shops only","Amerikamura, Shinsaibashi, Umeda"],["both","Osaka first, Kojima if there’s time"],["skip","Not for me"]]},
+{id:"jb",s:"Jeans",t:"Your jeans budget",o:[["low","Under ¥8,000","Uniqlo, GU, vintage finds"],["mid","¥8,000–20,000","Levi’s, Edwin, Japanese labels"],["high","¥20,000 and up","Handmade selvedge denim"]]},
+{id:"kobe",s:"Kobe",t:"In Kobe I want…",m:1,o:[["beef","Kobe beef teppanyaki"],["harbor","Harborland and the waterfront"],["kitano","Kitano’s old foreign houses"],["china","Nankinmachi Chinatown street food"],["rope","Nunobiki ropeway and herb gardens"],["night","Mt. Rokko night view"]]},
+{id:"beef",s:"Kobe",t:"Kobe beef: how?",o:[["lunch","Lunch set","Same beef, friendlier price"],["dinner","Dinner splurge","The full teppanyaki show"],["skip","Skip the beef"]]},
+{id:"nat",s:"Nature escape",t:"Pick our nature escape",o:[["arima","Arima Onsen","Old hot-spring town behind Kobe, about 1 hr from Osaka. Day trip or 1 night"],["arashi","Kyoto Arashiyama","Bamboo grove, river views, monkey park. Easy day trip"],["kino","Kinosaki Onsen","Willow canal, 7 baths you visit in yukata, crab season. Best as 1 night, about 2.5 hrs away"]]},
+{id:"onsen",s:"Nature escape",t:"Onsen comfort level",o:[["priv","Private family bath only"],["pub","Public baths are fine"],["none","Not into hot springs"]]},
+{id:"food",s:"Food",t:"Your must-eat list",m:1,o:[["ramen","Ramen"],["tako","Takoyaki and okonomiyaki in Dotonbori"],["sushi","Conveyor-belt sushi"],["yaki","Wagyu yakiniku"],["konbini","Konbini snack runs"],["matcha","Matcha desserts"],["crab","Crab feast"],["bfast","Japanese breakfast"]]},
+{id:"fun",s:"Anime, games and theater",t:"Pick your fun stops",m:1,o:[["poke","Pokémon Center Osaka"],["nin","Nintendo Osaka"],["taka","Takarazuka Revue show","All-female musical theater between Osaka and Kobe; book ahead"],["denden","Den Den Town","Anime, figures, retro games"],["ghibli","Ghibli shop"],["jump","Jump Shop"]]},
+{id:"must",s:"Last one",t:"What would you be sad to miss?",x:1}
+];
+const $=s=>document.querySelector(s),V=$("#view");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let me=null,step=0,mine={},all={},tab="a",saveT=null,saving=false,status="";
+const LS=k=>{try{return JSON.parse(localStorage.getItem("jp26_"+k)||"null")}catch(e){return null}};
+const LSset=(k,v)=>{try{localStorage.setItem("jp26_"+k,JSON.stringify(v))}catch(e){}};
+const fam=k=>FAM.find(f=>f[0]===k);
+
+/* snow */
+const sn=$("#sn");let f="";for(let i=0;i<46;i++){const x=(i*173)%800,y=(i*67)%300,r=1+(i%3),d=6+(i%5)*2;f+=`<circle class="flake" cx="${x}" cy="${y-300}" r="${r}" fill="#fff" opacity=".8" style="animation-duration:${d}s;animation-delay:-${(i*.7)%d}s"/>`}sn.innerHTML=f;
+
+function answered(q){const a=mine[q.id];return q.x?!!(a&&a.trim()):Array.isArray(a)&&a.length>0}
+function render(){
+ $("#tA").setAttribute("aria-selected",tab==="a");$("#tR").setAttribute("aria-selected",tab==="r");
+ if(tab==="r")return renderResults();
+ if(!me){V.innerHTML=`<h2 style="font-size:28px">Who’s answering?</h2><p class="hint" style="margin-top:6px">Tap your name. ${Q.length} quick questions, about 3 minutes.</p><div class="who">${FAM.map(([k,n,r,c])=>`<button class="chip" data-who="${k}"><span class="av" style="background:${c}">${n[0]}</span>${n}${all[k]?`<small>${all[k].done?"Done ✓":"In progress"}</small>`:r?`<small>${r}</small>`:""}</button>`).join("")}</div>`;return}
+ if(step>=Q.length)return renderDone();
+ const q=Q[step],a=mine[q.id]||(q.x?"":[]),F=fam(me);
+ V.innerHTML=`<div class="top"><span>${F[1]} · ${step+1} of ${Q.length}</span><button data-act="switch">Not ${F[1]}?</button></div>
+ <div class="bar"><i style="width:${(step/Q.length)*100}%"></i></div>
+ <div class="q"><div class="sec">${q.s}</div><h2>${q.t}</h2><p class="hint">${q.x?"Optional. Anything goes.":q.m?"Pick as many as you like.":"Pick one."}</p>
+ ${q.x?`<textarea id="txt" placeholder="Snow? A certain snack? Tell us.">${esc(a)}</textarea>`:`<div class="opts">${q.o.map(([k,l,d])=>`<button class="opt ${q.m?"m":""}" data-o="${k}" aria-pressed="${a.includes(k)}"><span class="tick">${a.includes(k)?"✓":""}</span><span><b>${l}</b>${d?`<span>${d}</span>`:""}</span></button>`).join("")}</div>`}</div>
+ <div class="nav"><button class="btn sec2" data-act="back" ${step===0?"disabled":""}>Back</button><button class="btn pri" data-act="next" ${!q.x&&!answered(q)?"disabled":""}>${step===Q.length-1?"Finish":"Next"}</button></div>
+ <div class="status">${esc(status)}</div>`;
+ const t=$("#txt");if(t)t.addEventListener("input",()=>{mine[q.id]=t.value;queueSave()});
+}
+function summary(k,ans){const F=fam(k);return `${F[1]}’s Japan picks\n`+Q.map(q=>{const a=ans[q.id];if(!a||!a.length)return null;return `• ${q.t} ${q.x?a:a.map(o=>(q.o.find(x=>x[0]===o)||[,o])[1]).join(", ")}`}).filter(Boolean).join("\n")}
+function renderDone(){
+ const F=fam(me);V.innerHTML=`<div class="done"><h2>Arigatō, ${F[1]}!</h2><p class="hint">${API&&!status?"Your answers are saved for the family plan.":"Your answers are kept on this device. Tap Copy and send them to Mom."}</p>
+ <div class="nav"><button class="btn sec2" data-act="edit">Change answers</button><button class="btn pri" data-act="results">See family results</button></div>
+ <div class="nav"><button class="btn sec2" style="flex:1" data-act="copy">Copy my answers</button></div><div class="copybox">${esc(summary(me,mine))}</div><div class="status">${esc(status)}</div></div>`;
+}
+function renderResults(){
+ const keys=FAM.map(f=>f[0]).filter(k=>all[k]&&all[k].answers);
+ if(!keys.length){V.innerHTML=`<h2 style="font-size:28px">Family results</h2><p class="empty">${API?"No answers yet. Once the family fills theirs in, the votes show up here.":"Results appear here once the app is connected to the trip sheet."}</p>`;return}
+ let h=`<h2 style="font-size:28px">Family results</h2><div class="legend">${FAM.map(([k,n,,c])=>`<span class="${all[k]?"in":""}" style="${all[k]?`background:${c}`:""}">${n} ${all[k]?(all[k].done?"✓":"…"):"·"}</span>`).join("")}</div>`;
+ for(const q of Q){
+  if(q.x){const notes=keys.filter(k=>(all[k].answers[q.id]||"").trim());h+=`<div class="rq"><h3>${q.t}</h3>${notes.length?notes.map(k=>`<div class="note"><b>${fam(k)[1]}:</b> ${esc(all[k].answers[q.id])}</div>`).join(""):`<p class="hint">No notes yet.</p>`}</div>`;continue}
+  const rows=q.o.map(([o,l])=>({l,who:keys.filter(k=>(all[k].answers[q.id]||[]).includes(o))})).sort((a,b)=>b.who.length-a.who.length);
+  const max=Math.max(1,...rows.map(r=>r.who.length));
+  h+=`<div class="rq"><div class="sec">${q.s}</div><h3>${q.t}</h3>${rows.map((r,i)=>`<div class="row ${i===0&&r.who.length?"lead":""}"><span class="lab">${r.l}</span><span class="ct">${r.who.length}</span><span class="track"><i style="width:${r.who.length/max*100}%"></i></span>${r.who.length?`<span class="dots">${r.who.map(k=>`<em style="background:${fam(k)[3]}">${fam(k)[1]}</em>`).join("")}</span>`:""}</div>`).join("")}</div>`;
+ }
+ V.innerHTML=h;
+}
+const API="https://script.google.com/macros/s/AKfycbztueP_71UpTtpl_EY54QWfe1ZCaJXZ_D-pgdo4k4_PkANo-6hIp1r6ImpFwo2niV7R/exec"; // ← paste your Apps Script web app URL (ends in /exec) between the quotes
+function queueSave(){LSset("ans_"+me,mine);clearTimeout(saveT);saveT=setTimeout(save,900)}
+function labels(){return Q.map(q=>{const a=mine[q.id];return [q.t,!a?"":q.x?a:a.map(o=>(q.o.find(x=>x[0]===o)||[,o])[1]).join(", ")]})}
+async function save(){
+ if(!API||!me||saving)return;saving=true;
+ const body={member:me,answers:mine,done:step>=Q.length,labels:labels()};
+ try{const r=await fetch(API,{method:"POST",body:JSON.stringify(body)});const j=await r.json();if(!j.ok)throw 0;status="";all[me]={answers:JSON.parse(JSON.stringify(mine)),done:body.done}}
+ catch(e){status="Couldn’t reach the trip plan just now; your answers are kept on this device. Try again in a bit.";if(tab==="a")softStatus()}
+ saving=false;
+}
+async function load(){
+ if(!API)return;
+ try{const r=await fetch(API);const j=await r.json();const n={};for(const k in j)if(fam(k))n[k]=j[k];all=n;
+  if(me&&!Object.keys(mine).length&&all[me])mine=JSON.parse(JSON.stringify(all[me].answers||{}));
+  const typing=document.activeElement&&document.activeElement.id==="txt";if(!typing&&(tab==="r"||!me))render()}
+ catch(e){if(tab==="r"){status="Couldn’t load family results. Pull to refresh in a moment.";}}
+}
+function softStatus(){const s=V.querySelector(".status");if(s)s.textContent=status}
+V.addEventListener("click",async e=>{
+ const w=e.target.closest("[data-who]");if(w){me=w.dataset.who;LSset("me",me);mine=(all[me]&&all[me].answers)?JSON.parse(JSON.stringify(all[me].answers)):(LS("ans_"+me)||{});step=0;while(step<Q.length-1&&answered(Q[step]))step++;if(all[me]&&all[me].done)step=Q.length;render();return}
+ const o=e.target.closest("[data-o]");if(o){const q=Q[step];let a=mine[q.id]||[];const k=o.dataset.o;if(q.m){a=a.includes(k)?a.filter(x=>x!==k):[...a,k]}else a=[k];mine[q.id]=a;queueSave();render();if(!q.m)setTimeout(()=>{if(Q[step]===q){step++;render();window.scrollTo({top:V.offsetTop-60,behavior:"smooth"})}},280);return}
+ const b=e.target.closest("[data-act]");if(!b)return;const act=b.dataset.act;
+ if(act==="next"){step++;if(step>=Q.length){clearTimeout(saveT);LSset("ans_"+me,mine);render();await save();render();return}render()}
+ if(act==="back"){step=Math.max(0,step-1);render()}
+ if(act==="switch"){clearTimeout(saveT);save();me=null;LSset("me",null);render()}
+ if(act==="edit"){step=0;render()}
+ if(act==="results"){tab="r";render();load()}
+ if(act==="copy"){try{await navigator.clipboard.writeText(summary(me,mine));status="Copied. Paste it into Messenger or Viber for Mom."}catch(err){status="Press and hold the text below to copy it."}softStatus()}
+});
+$("#tA").onclick=()=>{tab="a";render()};$("#tR").onclick=()=>{tab="r";render();load()};
+me=LS("me");if(me&&!fam(me))me=null;if(me){mine=LS("ans_"+me)||{};while(step<Q.length-1&&answered(Q[step]))step++}
+render();
+load();setInterval(()=>{if(tab==="r"&&!document.hidden)load()},20000);
+}
+</script>
+</body>
+</html>
